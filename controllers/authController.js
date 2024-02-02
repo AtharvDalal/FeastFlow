@@ -5,9 +5,9 @@ import jwt from "jsonwebtoken";
 
 const registerController = async (req, res) => {
   try {
-    const { username, email,address, password, phone } = req.body;
+    const { username, email,address, password,answer ,phone } = req.body;
 
-    if (!username || !password || !email || !password) {
+    if (!username || !password || !email ||!answer || !password) {
         return res.status(500).send({
             success:false,
             msg: "Please Fill All Feilds"
@@ -29,7 +29,7 @@ const registerController = async (req, res) => {
 
     //create New User
 
-    const user = await User.create({username, email, password: hashPassword,address,phone})
+    const user = await User.create({username, email, password: hashPassword,address,phone,answer})
     res.status(201).send({
       success: true,
       msg:"User Registerd Succesfull",

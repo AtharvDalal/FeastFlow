@@ -71,3 +71,41 @@ try {
 }
 }
 
+export const resetPasswordController = async()=>{
+  try {
+
+    const {email, newPassword, answer} = req.body;
+      
+    if (!email || !newPassword || !answer) {
+      res.status(500).send({
+        success: false,
+        msg: "Please Provide all Feilds"
+       })
+    }
+
+    const user = await User.findOne({email, answer})
+    if (!user) {
+      res.status(500).send({
+        success: false,
+        msg: "User Not Found or Invalid Answer"
+       })
+    }
+
+    var salt = bcryptjs.genSaltSync(10)
+    const hashPassword = await bcryptjs.hash(newPassword, salt)
+    user.password = hashPassword;
+    await user.save();
+    res.status(200).send({
+      success: true,
+      msg:"Password reset Successfull"
+    })
+    
+  } catch (error) {
+       console.log(error);
+       res.status(500).send({
+        success: false,
+        msg: "Error In ResetPassword API"
+       })
+  }
+}
+
