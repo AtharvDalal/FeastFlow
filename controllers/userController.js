@@ -1,7 +1,7 @@
 //GEt USER INFO
 
 import { User } from "../models/userModel.js";
-
+import bcryptjs from "bcryptjs";
 export const getUserController = async(req,res)=>{
          try {
             //find User
@@ -71,7 +71,7 @@ try {
 }
 }
 
-export const resetPasswordController = async()=>{
+export const resetPasswordController = async(req ,res)=>{
   try {
 
     const {email, newPassword, answer} = req.body;
