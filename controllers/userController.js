@@ -109,3 +109,69 @@ export const resetPasswordController = async(req ,res)=>{
   }
 }
 
+// update User Password
+
+export const updatePasswordController = async(req, res)=>{
+     try {
+      //find user
+    const user = await User.findById({_id:req.body.id}) 
+    if (!user) {
+         return res.status(404).send({
+          success: false,
+          msg: "User NOt Found"
+         })      
+    }     
+
+    // get data
+     const {oldPassword,newPassword } = req.body
+     if (!oldPassword || !newPassword) {
+       return res.status(500).send({
+        success:false,
+        msg:" Please Provide Old And New Password"
+
+       })
+     }
+     const isMatch = await bcryptjs.compare(oldPassword , user.password)
+     if (!isMatch) {
+          return res.status(500).send({
+            success:false,
+            msg:"Invalid Old Password"
+          })
+     }
+     // Hashing Password
+     var salt = bcryptjs.genSaltSync(10)
+     const hashPassword = await bcryptjs.hash(newPassword, salt)
+     user.password = hashPassword;
+       await user.save();
+       res.status(200).send({
+        success: true,
+        msg:" Password Updated Successfull"
+       })
+     } catch (error) {
+      console.log(error);
+      res.status(500).send({
+       success: false,
+       msg: "Error In Update Password API",
+       error
+      })
+     }
+}
+
+// Delete User Account
+
+export const deleteUserController = async(req, res)=>{
+  try {
+    await User.findByIdAndDelete(req.params.id)
+    return res.status(200).send({
+      success: true,
+      msg: "Your Account has been Deletetd"
+    })
+  } catch (error) {
+    console.log(error);
+      res.status(500).send({
+       success: false,
+       msg: "Error In Delete User API",
+       error
+      })
+  }
+}
