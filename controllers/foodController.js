@@ -1,4 +1,5 @@
 import { Foods } from "../models/foodModel.js";
+import { Orders } from "../models/orderModel.js";
 
 export const createFoodController = async (req, res) => {
   try {
@@ -228,3 +229,41 @@ export const deleteFoodController = async (req, res) => {
     });
   }
 };
+
+//Place Order CONTROLLER
+ export const placeOrderController = async(req,res)=>{
+     try {
+      const {cart, } = req.body;
+      if (!cart ) {
+        return res.status(500).send({
+          success:false,
+          msg:"Please provide Food And Cart Method"
+        })
+      }
+      let total = 0;
+       
+      //calculate Price
+      cart.map((i)=>{
+            total += i.price
+      })
+     const newOrder = new Orders({
+          foods:cart,
+          payments: total,
+          buyer: req.body.id
+
+     })
+     await newOrder.save()
+     res.status(200).send({
+      success:true,
+      msg:"Order Placed SuccessFully",
+      newOrder
+     })
+     } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        msg: "Error Place Order  API",
+        error,
+     })
+ }
+ }

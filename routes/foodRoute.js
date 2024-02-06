@@ -5,6 +5,7 @@ import {
   getFoodbyIdController,
   getFoodbyRestuarantController,
   getallFoodController,
+  placeOrderController,
   updateFoodController,
 } from "../controllers/foodController.js";
 
@@ -27,4 +28,7 @@ router.put("/update/:id", updateFoodController);
 
 //Delete Food
 router.delete("/delete/:id", deleteFoodController);
+
+//Place Order
+router.post('/placeorder', placeOrderController)
 export default router;
