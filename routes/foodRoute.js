@@ -1,5 +1,5 @@
 import express from 'express'
-import { createFoodController, getFoodbyIdController, getallFoodController } from '../controllers/foodController.js'
+import { createFoodController, getFoodbyIdController, getFoodbyRestuarantController, getallFoodController } from '../controllers/foodController.js'
 
 const router = express.Router()
 
@@ -14,5 +14,5 @@ router.get('/getall',getallFoodController)
 router.get('/getone/:id', getFoodbyIdController)
 
 //get Food By Resturant
-router.get('/getbyrest/:id', getFoodbyIdController)
+router.get('/getbyrest/:id', getFoodbyRestuarantController)
 export default router
