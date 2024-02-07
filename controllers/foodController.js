@@ -267,3 +267,30 @@ export const deleteFoodController = async (req, res) => {
      })
  }
  }
+
+ //Change Order Status
+
+ export const orderStatusController = async(req,res)=>{
+      try {
+        const orderId = req.params.id;
+        if (!orderId) {
+          return res.status(404).send({
+            success: false,
+            msg:"Please Provide Valid Order ID"
+          })
+        }
+        const {status} = req.body;
+        const order = await Orders.findByIdAndUpdate(orderId, {status}, {new:true})
+        res.status(200).send({
+          success: true,
+          msg: "Order Status Updated"
+        })
+      } catch (error) {
+        console.log(error);
+      res.status(500).send({
+        success: false,
+        msg: "Error Order Status  API",
+        error,
+     })
+      }
+ }

@@ -5,9 +5,11 @@ import {
   getFoodbyIdController,
   getFoodbyRestuarantController,
   getallFoodController,
+  orderStatusController,
   placeOrderController,
   updateFoodController,
 } from "../controllers/foodController.js";
+import adminMiddlware from "../middleware/adminMidlleware.js";
 
 const router = express.Router();
 
@@ -31,4 +33,8 @@ router.delete("/delete/:id", deleteFoodController);
 
 //Place Order
 router.post('/placeorder', placeOrderController)
+
+
+//ORDER Stauts
+router.post('/orderstatus/:id',adminMiddlware, orderStatusController)
 export default router;
