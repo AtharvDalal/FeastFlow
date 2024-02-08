@@ -187,7 +187,8 @@ export const updateFoodController = async () => {
 
     res.status(200).send({
       success: true,
-      msg: "Food Item Was udated Successfully",
+      msg: "Food Item Was udated Successfully", 
+      updatedFood
     });
   } catch (error) {
     console.log(error);
