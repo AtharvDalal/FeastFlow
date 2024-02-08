@@ -124,7 +124,7 @@ export const getFoodbyRestuarantController = async (req, res) => {
     }
     res.status(200).send({
       success: true,
-      msg: "food based On Resturant",
+      msg: "Food based On Resturant",
       food,
     });
   } catch (error) {
