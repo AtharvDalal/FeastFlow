@@ -37,7 +37,7 @@ export const createFoodController = async (req, res) => {
     await newFood.save();
     res.status(200).send({
       success: true,
-      msg: "new Food Item Is Created",
+      msg: "New Food Item Is Created",
       newFood,
     });
   } catch (error) {
