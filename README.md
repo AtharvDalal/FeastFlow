@@ -1,4 +1,4 @@
-# Restaurant App Backend
+# FeastFlow
 
 
 ## Overview
